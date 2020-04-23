@@ -69,8 +69,7 @@ def done():
     for f in range(6):
         for row in range(3):
             for col in range(3):
-                string += canvas.itemcget(facelet_id[f][row][col], "fill")[0]
-    print(string)            
+                string += canvas.itemcget(facelet_id[f][row][col], "fill")[0]           
     solution = solve(string)
     return(print(solution))
 

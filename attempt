@@ -1,0 +1,46 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Apr 23 14:03:34 2020
+
+@author: catherinexu
+"""
+
+##pip install rubik_solver
+from rubik_solver import utils
+
+example = 'wowgybwyogygybyoggrowbrgywrborwggybrbwororbwborgowryby'
+
+cube = example
+
+turns = utils.solve(cube, 'Kociemba') #list
+
+i = 1
+for m in turns:
+    move = str(m)
+    if "'" in move:
+        direction = "counter-clockwise"
+    else:
+        direction = "clockwise"
+        
+    if '2' in move:
+        num = "twice"
+    else:
+        num = "once"
+        
+    if "L" in move:
+        face = "left"
+    elif "F" in move:
+        face = "front"
+    elif "R" in move:
+        face = "right"
+    elif "B" in move:
+        face = "back"
+    elif "U" in move:
+        face = "upper"
+    elif "D" in move:
+        face = "bottom"
+    
+    print(str(i) + ") " + "Turn the " + face + " face " + num + " " + direction)
+    i += 1
+            

@@ -30,6 +30,11 @@ for color, (lower, upper) in colors.items():
 gray = cv2.cvtColor(mask, cv2.COLOR_BGR2GRAY)
 cnts = cv2.findContours(gray, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 cnts = cnts[0] if len(cnts) == 2 else cnts[1]
+
+temp_list = list(cnts)
+temp_list = [item for item in cnts if cv2.contourArea(item) > 5000]
+cnts = tuple(temp_list)
+
 # Sort all contours from top-to-bottom or bottom-to-top
 (cnts, _) = contours.sort_contours(cnts, method="top-to-bottom")
 

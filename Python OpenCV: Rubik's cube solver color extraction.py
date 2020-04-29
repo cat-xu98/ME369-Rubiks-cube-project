@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 from imutils import contours
 
-image = cv2.imread('top.jpeg')
+image = cv2.imread('test cube.jpg')
 original = image.copy()
 image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
 mask = np.zeros(image.shape, dtype=np.uint8)
@@ -11,7 +11,11 @@ colors = {
     'gray': ([76, 0, 41], [179, 255, 70]),        # Gray
     'blue': ([69, 120, 100], [179, 255, 255]),    # Blue
     'yellow': ([21, 110, 117], [45, 255, 255]),   # Yellow
-    'orange': ([0, 110, 125], [17, 255, 255])     # Orange
+    'orange': ([0, 110, 125], [17, 255, 255]),    # Orange
+    'white': ([0, 0, 20], [180, 50, 255]),        # White
+    'red1': ([0, 100, 20], [15, 255, 255]),       # Red1
+    'red2': ([170, 200, 20], [180, 255, 255]),    # Red1
+    'green': ([45, 100, 20], [70, 255, 255])      # Green
     }
 
 # Color threshold to find the squares
@@ -32,7 +36,7 @@ cnts = cv2.findContours(gray, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 cnts = cnts[0] if len(cnts) == 2 else cnts[1]
 
 temp_list = list(cnts)
-temp_list = [item for item in cnts if cv2.contourArea(item) > 5000]
+temp_list = [item for item in cnts if 8000 < cv2.contourArea(item) < 90000]
 cnts = tuple(temp_list)
         
 # Sort all contours from top-to-bottom or bottom-to-top
@@ -69,10 +73,12 @@ for row in cube_rows:
             res.append([cx,cy,'R'])
         elif (50 < color < 70):
             res.append([cx,cy,'G'])
-        elif (20 < color < 40):
+        elif (31 < color < 40):
             res.append([cx,cy,'Y'])
         elif (110 < color < 130):
             res.append([cx,cy,'B'])
+        elif (10 < color < 30):
+            res.append([cx,cy,'O'])
 
             
 colors = [x[2] for x in res]

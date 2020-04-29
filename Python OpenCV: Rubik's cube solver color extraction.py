@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 from imutils import contours
 
-image = cv2.imread('1.png')
+image = cv2.imread('top.jpeg')
 original = image.copy()
 image = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
 mask = np.zeros(image.shape, dtype=np.uint8)
@@ -34,7 +34,7 @@ cnts = cnts[0] if len(cnts) == 2 else cnts[1]
 temp_list = list(cnts)
 temp_list = [item for item in cnts if cv2.contourArea(item) > 5000]
 cnts = tuple(temp_list)
-
+        
 # Sort all contours from top-to-bottom or bottom-to-top
 (cnts, _) = contours.sort_contours(cnts, method="top-to-bottom")
 
@@ -50,14 +50,35 @@ for (i, c) in enumerate(cnts, 1):
 
 # Draw text
 number = 0
+res = []
 for row in cube_rows:
     for c in row:
         x,y,w,h = cv2.boundingRect(c)
+        cx,cy = x+w/2, y+h/2
+        cx = int(cx)
+        cy = int(cy)
+        
         cv2.rectangle(original, (x, y), (x + w, y + h), (36,255,12), 2)
 
         cv2.putText(original, "#{}".format(number + 1), (x,y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255,255,255), 2)
         number += 1
+        
+        color = image[cy,cx,0]
+        
+        if (color < 10 or color > 170):
+            res.append([cx,cy,'R'])
+        elif (50 < color < 70):
+            res.append([cx,cy,'G'])
+        elif (20 < color < 40):
+            res.append([cx,cy,'Y'])
+        elif (110 < color < 130):
+            res.append([cx,cy,'B'])
 
+            
+colors = [x[2] for x in res]
+print(colors)        
+            
+            
 cv2.imshow('mask', mask)
 cv2.imwrite('mask.png', mask)
 cv2.imshow('original', original)

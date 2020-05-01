@@ -62,24 +62,26 @@ for row in cube_rows:
         cx = int(cx)
         cy = int(cy)
         
-        cv2.rectangle(original, (x, y), (x + w, y + h), (36,255,12), 2)
-
-        cv2.putText(original, "#{}".format(number + 1), (x,y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255,255,255), 2)
-        number += 1
-        
-        color = image[cy,cx,0]
-        
-        if (color < 10 or color > 170):
-            res.append([cx,cy,'R'])
-        elif (50 < color < 70):
-            res.append([cx,cy,'G'])
-        elif (31 < color < 40):
-            res.append([cx,cy,'Y'])
-        elif (110 < color < 130):
-            res.append([cx,cy,'B'])
-        elif (10 < color < 30):
-            res.append([cx,cy,'O'])
-
+        if w/h < 1.1 and h/w < 1.1: #checks that it is squarish
+            cv2.rectangle(original, (x, y), (x + w, y + h), (36,255,12), 2)
+    
+            cv2.putText(original, "#{}".format(number + 1), (x,y - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255,255,255), 2)
+            number += 1
+            
+            color = image[cy,cx,0]
+            
+            if (color < 12 or color > 160):
+                res.append([cx,cy,'R'])
+            elif (100 <= color < 160):
+                res.append([cx,cy,'B'])
+            elif (50 <= color < 100):
+                res.append([cx,cy,'G'])
+            elif (30 <= color < 50):
+                res.append([cx,cy,'W'])
+            elif (20 <= color < 30):
+                res.append([cx,cy,'Y'])
+            elif (12 <= color < 20):
+                res.append([cx,cy,'O'])
             
 colors = [x[2] for x in res]
 print(colors)        

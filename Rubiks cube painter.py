@@ -3,7 +3,7 @@
 """
 Created on Thu Apr 23 18:14:37 2020
 
-@author: catherinexu
+@author: catherinexu, harrisonfrende
 """
 
 from tkinter import *

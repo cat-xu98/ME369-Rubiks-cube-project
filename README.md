@@ -63,13 +63,13 @@ This section of code takes the outout of the rubik-solver package and formats it
 
 ### Steps 1 and 2:
 Code aquired from [stack overflow question answer by nathancy](https://stackoverflow.com/questions/24916870/python-opencv-rubiks-cube-solver-color-extraction/58018944#58018944)\
-Changes Made:\
+Changes Made:
 1. Added color ranges for green, red, and white
 2. Added functionality seen in steps 3 and 4
 
 ### Steps 3 and 4:
 Code acquired from [stack overflow question answer by Abid Rhaman K](https://stackoverflow.com/questions/14476683/identifying-color-sequence-in-opencv)\
-Changes Made:\
+Changes Made:
 1. Only used the contour size filter and color range recognition at the centroid of each identified countour
 
 ### Implementation of steps 5-7:
